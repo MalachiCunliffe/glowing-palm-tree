@@ -13,6 +13,7 @@ pipeline {
     choice(name: 'Operation', choices: paramOperationList, description: 'Operation to perform.')
   }
   options {
+    ansiColor('xterm')
     buildDiscarder(logRotator(numToKeepStr:'10'))
   }
 
