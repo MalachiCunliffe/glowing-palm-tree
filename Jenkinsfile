@@ -54,6 +54,19 @@ pipeline {
             }
           }
         }
+        stage('terraform apply') {
+          when {
+            equals expected: "create", actual: "${params.Operation}"
+          }
+          steps {
+            echo "terraform apply"
+            withCredentials([usernamePassword(credentialsId: 'aws-demo-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable :'AWS_SECRET_ACCESS_KEY'),]) {
+                sh '''
+                terraform apply current.plan
+                '''
+            }
+          }
+        }
         stage("terraform plan --destroy"){
           when {
             equals expected: "destroy", actual: "${params.Operation}"
@@ -68,19 +81,7 @@ pipeline {
             }
           }
         }
-        stage('terraform apply') {
-          when {
-            equals expected: "create", actual: "${params.Operation}"
-          }
-          steps {
-            echo "terraform apply"
-            withCredentials([usernamePassword(credentialsId: 'aws-demo-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable :'AWS_SECRET_ACCESS_KEY'),]) {
-                sh '''
-                terraform apply current.plan
-                '''
-            }
-          }
-        }
+        
         stage('terraform apply --destroy') {
           when {
             equals expected: "destroy", actual: "${params.Operation}"
