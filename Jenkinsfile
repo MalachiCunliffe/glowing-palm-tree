@@ -17,18 +17,22 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr:'10'))
   }
 
+  environment {
+      AWS = credentials("aws-demo-key")
+      AWS_ACCESS_KEY_ID = AWS_USR
+      AWS_SECRET_ACCESS_KEY = AWS_PSW
+
+    }
+
       stages {
         stage('terraform init') {
           steps {
             echo "terraform init"
-
-            withCredentials([usernamePassword(credentialsId: 'aws-demo-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable :'AWS_SECRET_ACCESS_KEY'),]) {
                 sh '''
                 terraform fmt
                 terraform version
                 terraform init
                 '''
-            }
           }
         }
         stage('terraform validate') {
