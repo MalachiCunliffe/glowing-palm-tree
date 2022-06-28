@@ -17,10 +17,6 @@ pipeline {
     ansiColor('xterm')
   }
 
-  environment {
-    // none at the moments
-          }
-
       stages {
         stage('terraform init') {
           steps {
