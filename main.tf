@@ -5,7 +5,8 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "malachi-terraform-backend"
-    region = var.region
+    region = "us-east-1"
+    key    = "tfstate"
     //dynamodb_table = "terraform-lock"
   }
 }
