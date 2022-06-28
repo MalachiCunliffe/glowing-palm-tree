@@ -19,8 +19,8 @@ pipeline {
 
   environment {
       AWS = credentials("aws-demo-key")
-      AWS_ACCESS_KEY_ID = AWS_USR
-      AWS_SECRET_ACCESS_KEY = AWS_PSW
+      AWS_ACCESS_KEY_ID = $AWS_USR
+      AWS_SECRET_ACCESS_KEY = $AWS_PSW
 
     }
 
