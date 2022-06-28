@@ -21,7 +21,7 @@ pipeline {
           steps {
             echo "terraform init"
 
-            withCredentials([usernamePassword(credentialsId: 'aws-demo-key', usernameVariable: 'aws_access_key_id', passwordVariable :'aws_secret_access_key'),]) {
+            withCredentials([usernamePassword(credentialsId: 'aws-demo-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable :'AWS_SECRET_ACCESS_KEY'),]) {
                 sh '''
                 terraform fmt
                 terraform version
@@ -33,7 +33,7 @@ pipeline {
         stage('terraform validate') {
           steps {
 
-            withCredentials([usernamePassword(credentialsId: 'aws-demo-key', usernameVariable: 'aws_access_key_id', passwordVariable :'aws_secret_access_key'),]) {
+            withCredentials([usernamePassword(credentialsId: 'aws-demo-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable :'AWS_SECRET_ACCESS_KEY'),]) {
                 sh '''
                 terraform validate
                 '''
@@ -47,7 +47,7 @@ pipeline {
         steps {
             echo "terraform plan"
 
-            withCredentials([usernamePassword(credentialsId: 'aws-demo-key', usernameVariable: 'aws_access_key_id', passwordVariable :'aws_secret_access_key'),]) {
+            withCredentials([usernamePassword(credentialsId: 'aws-demo-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable :'AWS_SECRET_ACCESS_KEY'),]) {
                 sh '''
                 terraform plan -out=current.plan
                 '''
@@ -61,7 +61,7 @@ pipeline {
           steps {
             echo "terraform plan"
 
-            withCredentials([usernamePassword(credentialsId: 'aws-demo-key', usernameVariable: 'aws_access_key_id', passwordVariable :'aws_secret_access_key'),]) {
+            withCredentials([usernamePassword(credentialsId: 'aws-demo-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable :'AWS_SECRET_ACCESS_KEY'),]) {
                 sh '''
                 terraform plan -destroy -out=current.plan
                 '''
@@ -74,7 +74,7 @@ pipeline {
           }
           steps {
             echo "terraform apply"
-            withCredentials([usernamePassword(credentialsId: 'aws-demo-key', usernameVariable: 'aws_access_key_id', passwordVariable :'aws_secret_access_key'),]) {
+            withCredentials([usernamePassword(credentialsId: 'aws-demo-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable :'AWS_SECRET_ACCESS_KEY'),]) {
                 sh '''
                 terraform apply current.plan
                 '''
@@ -87,7 +87,7 @@ pipeline {
           }
           steps {
             echo "terraform apply"
-            withCredentials([usernamePassword(credentialsId: 'aws-demo-key', usernameVariable: 'aws_access_key_id', passwordVariable :'aws_secret_access_key'),]) {
+            withCredentials([usernamePassword(credentialsId: 'aws-demo-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable :'AWS_SECRET_ACCESS_KEY'),]) {
                 sh '''
                 terraform apply current.plan
                 '''
